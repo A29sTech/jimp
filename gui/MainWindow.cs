@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,7 @@ namespace jimp.gui
         private Bitmap rendered;
         private Size layerSize;
         private int layerCopies;
+        private List<Preset> presets;
 
         public MainWindow(string[] args)
         {
@@ -29,6 +31,7 @@ namespace jimp.gui
             this.rendered = null;
             this.layerSize = new Size();
             this.layerCopies = 1;
+            this.LoadPresets();
 
             // Add Args Images;
             ShowLayerSetup();
@@ -46,6 +49,15 @@ namespace jimp.gui
             this.layerCopies = numofcopy;
             this.layerSize = size;
         }
+
+
+        public void iPresetSelector_IndexChange(object sender, EventArgs e)
+        {
+            this.paper.SetSize( presets[iPresetSelector.SelectedIndex].PaperSize );
+            this.paper.SetInnerArea( presets[iPresetSelector.SelectedIndex].InnerArea );
+            ShowPaper(true);
+        }
+
 
         private void iLayerAddBtn_Click(object sender, EventArgs e)
         {
@@ -131,10 +143,42 @@ namespace jimp.gui
         }
 
 
+        private void iPrintBtn_Click(object sender, EventArgs e)
+        {
+            Print();
+        }
+
+
+        private void PrintEventHandler(object sender, PrintPageEventArgs e)
+        {
+            var rect = e.PageBounds;
+            var ratio = rendered.Width / rendered.Height;
+            rect.Height = ratio * rect.Width;
+            e.Graphics.DrawImage(rendered, rect);
+        }
+
         #endregion Event Handlers;
 
 
         #region Actions Functions;
+
+
+        public void LoadPresets(string path="./presets.json")
+        {
+            if (File.Exists(path))
+            {
+                var file = new StreamReader(path);
+                this.presets = Preset.LoadFromJson(file.ReadToEnd());
+                file.Close();
+
+               foreach (var preset in this.presets)
+                {
+                    iPresetSelector.Items.Add(preset.name);
+                }
+                iPresetSelector.SelectedIndex = 0;
+            }
+            else MessageBox.Show("Preset File Not Found!");
+        }
 
 
         public void Render()
@@ -161,7 +205,18 @@ namespace jimp.gui
         {
             // TODO: display a dialog!
             var dialog = new LayerSetup(this);
+            dialog.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             dialog.ShowDialog();
+        }
+
+
+        public void Print()
+        {
+            var doc = new PrintDocument();
+            var printDialog = new PrintDialog();
+            doc.PrintPage += new PrintPageEventHandler(PrintEventHandler);
+            printDialog.Document = doc;
+            if (printDialog.ShowDialog() == DialogResult.OK) doc.Print();
         }
 
 
@@ -192,5 +247,7 @@ namespace jimp.gui
         }
 
         #endregion Core Functions;
+
+
     }
 }

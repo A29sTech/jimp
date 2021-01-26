@@ -59,7 +59,7 @@ namespace jimp.core
         public Bitmap Draw(int space, bool reverseOrder=false)
         {
             var paper = new Bitmap(size.Width, size.Height);
-            paper.SetResolution(300, 300);
+            //paper.SetResolution(300, 300);
 
             if (innerArea.Width < 1)
                 innerArea.Width = innerArea.X > 0 ? size.Width-(innerArea.X*2) : size.Width;

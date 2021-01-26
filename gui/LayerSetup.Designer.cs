@@ -102,11 +102,13 @@ namespace jimp.gui
             this.presetsBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.presetsBox.FormattingEnabled = true;
             this.presetsBox.Items.AddRange(new object[] {
-            "Std. Photo Defined By Jahid"});
+            "Std. Photo Defined By Jahid",
+            "W30M : C3"});
             this.presetsBox.Location = new System.Drawing.Point(12, 12);
             this.presetsBox.Name = "presetsBox";
             this.presetsBox.Size = new System.Drawing.Size(152, 21);
             this.presetsBox.TabIndex = 7;
+            this.presetsBox.SelectedIndexChanged += new System.EventHandler(this.presetsBox_IndexChange);
             // 
             // nOfCopyInput
             // 
@@ -147,11 +149,11 @@ namespace jimp.gui
             this.Controls.Add(this.closeBtn);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.Name = "LayerSetup";
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LayerSetup";
             this.TopMost = true;
             ((System.ComponentModel.ISupportInitialize)(this.nOfCopyInput)).EndInit();

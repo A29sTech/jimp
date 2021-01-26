@@ -30,22 +30,28 @@ namespace jimp.gui
         private void InitializeComponent()
         {
             this.controls = new System.Windows.Forms.Panel();
+            this.iPresetSelector = new System.Windows.Forms.ComboBox();
+            this.iLayerUpdateBtn = new System.Windows.Forms.Button();
+            this.iLayerCopiesInput = new System.Windows.Forms.NumericUpDown();
             this.iLayerSelectComboBox = new System.Windows.Forms.ComboBox();
             this.iLayerRemoveBtn = new System.Windows.Forms.Button();
             this.iLayerAddBtn = new System.Windows.Forms.Button();
             this.gfx = new System.Windows.Forms.Panel();
             this.imView = new System.Windows.Forms.PictureBox();
-            this.iLayerCopiesInput = new System.Windows.Forms.NumericUpDown();
-            this.iLayerUpdateBtn = new System.Windows.Forms.Button();
+            this.iPrintBtn = new System.Windows.Forms.Button();
+            this.iSaveBtn = new System.Windows.Forms.Button();
             this.controls.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.iLayerCopiesInput)).BeginInit();
             this.gfx.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iLayerCopiesInput)).BeginInit();
             this.SuspendLayout();
             // 
             // controls
             // 
             this.controls.BackColor = System.Drawing.SystemColors.Control;
+            this.controls.Controls.Add(this.iSaveBtn);
+            this.controls.Controls.Add(this.iPrintBtn);
+            this.controls.Controls.Add(this.iPresetSelector);
             this.controls.Controls.Add(this.iLayerUpdateBtn);
             this.controls.Controls.Add(this.iLayerCopiesInput);
             this.controls.Controls.Add(this.iLayerSelectComboBox);
@@ -57,6 +63,37 @@ namespace jimp.gui
             this.controls.Size = new System.Drawing.Size(174, 356);
             this.controls.TabIndex = 0;
             // 
+            // iPresetSelector
+            // 
+            this.iPresetSelector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.iPresetSelector.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.iPresetSelector.FormattingEnabled = true;
+            this.iPresetSelector.Location = new System.Drawing.Point(9, 12);
+            this.iPresetSelector.Name = "iPresetSelector";
+            this.iPresetSelector.Size = new System.Drawing.Size(156, 21);
+            this.iPresetSelector.TabIndex = 5;
+            this.iPresetSelector.SelectedIndexChanged += new System.EventHandler(this.iPresetSelector_IndexChange);
+            // 
+            // iLayerUpdateBtn
+            // 
+            this.iLayerUpdateBtn.Enabled = false;
+            this.iLayerUpdateBtn.Location = new System.Drawing.Point(91, 64);
+            this.iLayerUpdateBtn.Name = "iLayerUpdateBtn";
+            this.iLayerUpdateBtn.Size = new System.Drawing.Size(74, 23);
+            this.iLayerUpdateBtn.TabIndex = 4;
+            this.iLayerUpdateBtn.Text = "Update";
+            this.iLayerUpdateBtn.UseVisualStyleBackColor = true;
+            this.iLayerUpdateBtn.Click += new System.EventHandler(this.iLayerUpdateBtn_Click);
+            // 
+            // iLayerCopiesInput
+            // 
+            this.iLayerCopiesInput.Enabled = false;
+            this.iLayerCopiesInput.Location = new System.Drawing.Point(9, 66);
+            this.iLayerCopiesInput.Name = "iLayerCopiesInput";
+            this.iLayerCopiesInput.Size = new System.Drawing.Size(75, 20);
+            this.iLayerCopiesInput.TabIndex = 3;
+            this.iLayerCopiesInput.ValueChanged += new System.EventHandler(this.iLayerCopiesInput_ValueChange);
+            // 
             // iLayerSelectComboBox
             // 
             this.iLayerSelectComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -64,7 +101,7 @@ namespace jimp.gui
             this.iLayerSelectComboBox.FormattingEnabled = true;
             this.iLayerSelectComboBox.Items.AddRange(new object[] {
             "`Paper"});
-            this.iLayerSelectComboBox.Location = new System.Drawing.Point(6, 67);
+            this.iLayerSelectComboBox.Location = new System.Drawing.Point(9, 93);
             this.iLayerSelectComboBox.Name = "iLayerSelectComboBox";
             this.iLayerSelectComboBox.Size = new System.Drawing.Size(156, 21);
             this.iLayerSelectComboBox.TabIndex = 2;
@@ -73,7 +110,7 @@ namespace jimp.gui
             // iLayerRemoveBtn
             // 
             this.iLayerRemoveBtn.Enabled = false;
-            this.iLayerRemoveBtn.Location = new System.Drawing.Point(87, 12);
+            this.iLayerRemoveBtn.Location = new System.Drawing.Point(90, 39);
             this.iLayerRemoveBtn.Name = "iLayerRemoveBtn";
             this.iLayerRemoveBtn.Size = new System.Drawing.Size(75, 23);
             this.iLayerRemoveBtn.TabIndex = 1;
@@ -83,7 +120,7 @@ namespace jimp.gui
             // 
             // iLayerAddBtn
             // 
-            this.iLayerAddBtn.Location = new System.Drawing.Point(6, 12);
+            this.iLayerAddBtn.Location = new System.Drawing.Point(9, 39);
             this.iLayerAddBtn.Name = "iLayerAddBtn";
             this.iLayerAddBtn.Size = new System.Drawing.Size(75, 23);
             this.iLayerAddBtn.TabIndex = 0;
@@ -111,25 +148,24 @@ namespace jimp.gui
             this.imView.TabIndex = 0;
             this.imView.TabStop = false;
             // 
-            // iLayerCopiesInput
+            // iPrintBtn
             // 
-            this.iLayerCopiesInput.Enabled = false;
-            this.iLayerCopiesInput.Location = new System.Drawing.Point(6, 41);
-            this.iLayerCopiesInput.Name = "iLayerCopiesInput";
-            this.iLayerCopiesInput.Size = new System.Drawing.Size(75, 20);
-            this.iLayerCopiesInput.TabIndex = 3;
-            this.iLayerCopiesInput.ValueChanged += new System.EventHandler(this.iLayerCopiesInput_ValueChange);
+            this.iPrintBtn.Location = new System.Drawing.Point(9, 120);
+            this.iPrintBtn.Name = "iPrintBtn";
+            this.iPrintBtn.Size = new System.Drawing.Size(75, 23);
+            this.iPrintBtn.TabIndex = 6;
+            this.iPrintBtn.Text = "Print";
+            this.iPrintBtn.UseVisualStyleBackColor = true;
+            this.iPrintBtn.Click += new System.EventHandler(this.iPrintBtn_Click);
             // 
-            // iLayerUpdateBtn
+            // iSaveBtn
             // 
-            this.iLayerUpdateBtn.Enabled = false;
-            this.iLayerUpdateBtn.Location = new System.Drawing.Point(88, 37);
-            this.iLayerUpdateBtn.Name = "iLayerUpdateBtn";
-            this.iLayerUpdateBtn.Size = new System.Drawing.Size(74, 23);
-            this.iLayerUpdateBtn.TabIndex = 4;
-            this.iLayerUpdateBtn.Text = "Update";
-            this.iLayerUpdateBtn.UseVisualStyleBackColor = true;
-            this.iLayerUpdateBtn.Click += new System.EventHandler(this.iLayerUpdateBtn_Click);
+            this.iSaveBtn.Location = new System.Drawing.Point(90, 120);
+            this.iSaveBtn.Name = "iSaveBtn";
+            this.iSaveBtn.Size = new System.Drawing.Size(75, 23);
+            this.iSaveBtn.TabIndex = 7;
+            this.iSaveBtn.Text = "Save";
+            this.iSaveBtn.UseVisualStyleBackColor = true;
             // 
             // MainWindow
             // 
@@ -142,9 +178,9 @@ namespace jimp.gui
             this.Name = "MainWindow";
             this.Text = "Jimp";
             this.controls.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.iLayerCopiesInput)).EndInit();
             this.gfx.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.imView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iLayerCopiesInput)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -159,5 +195,8 @@ namespace jimp.gui
         private System.Windows.Forms.ComboBox iLayerSelectComboBox;
         private System.Windows.Forms.NumericUpDown iLayerCopiesInput;
         private System.Windows.Forms.Button iLayerUpdateBtn;
+        private System.Windows.Forms.ComboBox iPresetSelector;
+        private System.Windows.Forms.Button iSaveBtn;
+        private System.Windows.Forms.Button iPrintBtn;
     }
 }

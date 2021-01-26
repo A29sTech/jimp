@@ -21,6 +21,7 @@ namespace jimp.gui
         {
             InitializeComponent();
             this.parent = parent;
+            presetsBox.SelectedIndex = 0;
         }
 
         private void closeBtn_Click(object sender, EventArgs e)
@@ -28,6 +29,24 @@ namespace jimp.gui
             this.Close();
         }
 
+        private void presetsBox_IndexChange(object sender, EventArgs e)
+        {
+            switch (presetsBox.Text)
+            {
+                case "Std. Photo Defined By Jahid":
+                    this.layerWidth.Text = "27";
+                    this.nOfCopyInput.Text = "3";
+                    break;
+                case "W30M : C3":
+                    this.layerWidth.Text = "30";
+                    this.nOfCopyInput.Text = "3";
+                    break;
+                default:
+                    this.layerWidth.Text = "27";
+                    this.nOfCopyInput.Text = "3";
+                    break;
+            }
+        }
 
         private void okBtn_Click(object sender, EventArgs e)
         {
